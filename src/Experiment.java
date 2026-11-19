@@ -63,12 +63,14 @@ public class Experiment {
         for (int t = 0; t < TRIALS; t++) {
             testDatasets[t] = generateRandomArray(N, 2026L + t);
         }
-        // Luu bo du lieu test dau tien (seed = 2026) ra file test_data.txt
-        saveDatasetToFile(testDatasets[0], "test_data.txt");
-        System.out.println("Da luu bo du lieu thi nghiem ra file: test_data.txt");
+        // Luu bo du lieu test dau tien (seed = 2026) ra file data/test_data.txt
+        new java.io.File("data").mkdirs();
+        saveDatasetToFile(testDatasets[0], "data/test_data.txt");
+        System.out.println("Da luu bo du lieu thi nghiem ra file: data/test_data.txt");
 
         // Mo file CSV de luu ket qua thong ke
-        PrintWriter csv = new PrintWriter(new FileWriter("results.csv"));
+        new java.io.File("results").mkdirs();
+        PrintWriter csv = new PrintWriter(new FileWriter("results/results.csv"));
         csv.println("Cutoff,Mean_ms,StdDev_ms,Improvement_Percent");
 
         System.out.println("\n--------------------------------------------------------------");
@@ -120,6 +122,6 @@ public class Experiment {
         System.out.println("--------------------------------------------------------------");
         System.out.printf("=> KET LUAN: Tren may cua ban, CUTOFF tot nhat la %d (Trung binh: %.2f ms)%n",
                 bestCutoff, bestMean);
-        System.out.println("=> Da luu bang so lieu vao file: results.csv");
+        System.out.println("=> Da luu bang so lieu vao file: results/results.csv");
     }
 }

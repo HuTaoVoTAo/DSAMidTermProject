@@ -1,8 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 1. Doc du lieu tu file results.csv
-df = pd.read_csv("results.csv")
+# 1. Doc du lieu tu file results/results.csv
+df = pd.read_csv("results/results.csv")
 
 # 2. Tao khung bieu do
 plt.figure(figsize=(10, 5.5))
@@ -30,5 +30,5 @@ plt.legend()
 plt.tight_layout()
 
 # 5. Luu ra file anh
-plt.savefig("cutoff_chart.png", dpi=150)
-print("Da ve xong bieu do: cutoff_chart.png")
+plt.savefig("results/cutoff_chart.png", dpi=150)
+print("Da ve xong bieu do: results/cutoff_chart.png")

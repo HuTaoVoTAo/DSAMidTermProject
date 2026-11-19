@@ -82,11 +82,11 @@ Mình xem kỹ đoạn code của bạn rồi! Đúng là code này chạy vẫn
 ## Phiên 3: Viết script chạy thí nghiệm & thống kê theo chủ đề 1.3 Algorithm Analysis
 
 **AI:**
-Ok bạn! Để đúng yêu cầu *"Xem lại chủ đề 1.3. Algorithm Analysis để ôn tập về thí nghiệm và thống kê kết quả thí nghiệm"*, mình đã viết file [`Experiment.java`](./Experiment.java) với thiết kế như sau:
+Ok bạn! Để đúng yêu cầu *"Xem lại chủ đề 1.3. Algorithm Analysis để ôn tập về thí nghiệm và thống kê kết quả thí nghiệm"*, mình đã viết file [`src/Experiment.java`](./src/Experiment.java) với thiết kế như sau:
 - **Kích thước mảng:** $N = 500,000$ phần tử `Integer` sinh ngẫu nhiên với `seed` cố định (`2026L + t`) để đảm bảo tính tái lập.
 - **Các mức `CUTOFF` khảo sát:** `{1, 3, 5, 7, 8, 10, 12, 15, 16, 20, 24, 32, 48, 64, 100}` (bao gồm mốc cơ sở `1`, mốc sách cũ `7`, mốc sách mới `10`, và các giá trị xung quanh).
 - **Warm-up JVM:** Chạy nháp 5 vòng trước khi bấm giờ để trình biên dịch JIT của Java tối ưu hóa mã máy.
-- **Đo lặp và thống kê (`StdStats`):** Với mỗi mức `CUTOFF`, chạy lặp `TRIALS = 15` lần trên bản copy (`clone()`) của cùng bộ mảng gốc, đo bằng `System.nanoTime()` rồi tính **Trung bình mẫu (`mean`)** và **Độ lệch chuẩn mẫu (`stddev`)**. Kết quả được lưu tự động vào file [`results.csv`](./results.csv).
+- **Đo lặp và thống kê (`StdStats`):** Với mỗi mức `CUTOFF`, chạy lặp `TRIALS = 15` lần trên bản copy (`clone()`) của cùng bộ mảng gốc, đo bằng `System.nanoTime()` rồi tính **Trung bình mẫu (`mean`)** và **Độ lệch chuẩn mẫu (`stddev`)**. Kết quả được lưu tự động vào file [`results/results.csv`](./results/results.csv).
 
 **Sinh viên:**
 > Sao phải có bước Warm-up JVM với phải `clone()` mảng ra mà không tạo mảng random mới ở mỗi vòng lặp luôn cho nhanh? Với cả trong bảng kết quả vừa chạy ra, sao ở `CUTOFF = 64` và `100` phần trăm cải thiện lại bị âm (`-11.58%`) thế kia?
@@ -109,14 +109,14 @@ Hai câu hỏi rất hay và rất dễ được hỏi khi vấn đáp:
 ## Phiên 4: Vẽ đồ thị kết quả và tổng hợp báo cáo
 
 **AI:**
-Mình dùng **Python** kết hợp với 2 thư viện chuẩn trong phân tích dữ liệu là **`pandas`** và **`matplotlib`** (code nằm trong file [`plot.py`](./plot.py)):
-- Dùng `pandas.read_csv("results.csv")` để đọc bảng số liệu vừa đo được.
+Mình dùng **Python** kết hợp với 2 thư viện chuẩn trong phân tích dữ liệu là **`pandas`** và **`matplotlib`** (code nằm trong file [`src/plot.py`](./src/plot.py)):
+- Dùng `pandas.read_csv("results/results.csv")` để đọc bảng số liệu vừa đo được.
 - Dùng `matplotlib.pyplot.errorbar()` để vẽ đường biểu diễn thời gian chạy trung bình (`Mean_ms`) theo từng mức `CUTOFF`, đồng thời gắn luôn thanh sai số thẳng đứng (`yerr = StdDev_ms`) tại mỗi điểm đo.
 - Dùng `plt.axvline()` kẻ 2 đường gióng nét đứt tại `CUTOFF = 7` (giáo trình cũ) và `CUTOFF = 10` (giáo trình mới), cùng 1 chấm tròn đỏ đánh dấu điểm tối ưu nhất trên máy của bạn là `CUTOFF = 12 (196.6 ms)`.
-- Xuất đồ thị ra file ảnh [`cutoff_chart.png`](./cutoff_chart.png).
+- Xuất đồ thị ra file ảnh [`results/cutoff_chart.png`](./results/cutoff_chart.png).
 
 **Sinh viên:**
 > Đồ thị nhìn rõ hình chữ U luôn rồi đấy. Bây giờ bạn giúp mình tổng hợp lại toàn bộ phần mô tả thí nghiệm, cấu hình máy của mình, bảng số liệu CSV với cái ảnh đồ thị này vào một file báo cáo ngắn gọn để mình đọc ôn tập và nộp bài nhé.
 
 **AI:**
-Mình đã tổng hợp đầy đủ vào file [`REPORT.md`](./REPORT.md) gồm 5 mục: Mục tiêu thí nghiệm, Cấu hình máy (Intel Core i7-9750H, Java 25.0.2), Phương pháp thí nghiệm theo chủ đề 1.3, Bảng thống kê kèm đồ thị [`cutoff_chart.png`](./cutoff_chart.png), và Phần phân tích kết luận. Bạn có thể đọc lướt toàn bộ báo cáo chỉ trong vài phút để nắm chắc các ý chính khi đi vấn đáp!
+Mình đã tổng hợp đầy đủ vào file [`REPORT.md`](./REPORT.md) gồm 5 mục: Mục tiêu thí nghiệm, Cấu hình máy (Intel Core i7-9750H, Java 25.0.2), Phương pháp thí nghiệm theo chủ đề 1.3, Bảng thống kê kèm đồ thị [`results/cutoff_chart.png`](./results/cutoff_chart.png), và Phần phân tích kết luận. Bạn có thể đọc lướt toàn bộ báo cáo chỉ trong vài phút để nắm chắc các ý chính khi đi vấn đáp!

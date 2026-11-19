@@ -16,13 +16,13 @@ Các phiên bản giáo trình nhắc đến $\text{CUTOFF} = 7$ (bản cũ) và
 ---
 
 ## 3. Phương pháp thí nghiệm (Theo chủ đề 1.3. Algorithm Analysis)
-1. **Cài đặt chuẩn từ bài giảng ([MergeSort.java](./MergeSort.java)):**
+1. **Cài đặt chuẩn từ bài giảng ([src/MergeSort.java](./src/MergeSort.java)):**
    - Cấp phát mảng phụ `aux` **đúng 1 lần duy nhất** ở hàm `sort(Comparable[] a, int cutoff)` bên ngoài trước khi gọi đệ quy.
    - Sử dụng `insertionSort(a, lo, hi)` khi `hi <= lo + cutoff - 1`.
    - Khi `CUTOFF = 1`, điều kiện trở thành `hi <= lo` (tương đương **Mergesort thuần túy** không dùng Insertion Sort — làm mốc **Baseline**).
 2. **Làm nóng JVM (Warm-up):** Chạy nháp 5 lần trước khi bấm giờ để trình biên dịch JIT (Just-In-Time) tối ưu hóa bytecode sang mã máy.
-3. **Đảm bảo tính công bằng & Thống kê ([Experiment.java](./Experiment.java)):**
-   - Kích thước mảng thử nghiệm: $N = 500,000$ phần tử kiểu `Integer` sinh ngẫu nhiên với `seed` cố định (bộ dữ liệu mẫu được xuất ra file [`test_data.txt`](./test_data.txt)).
+3. **Đảm bảo tính công bằng & Thống kê ([src/Experiment.java](./src/Experiment.java)):**
+   - Kích thước mảng thử nghiệm: $N = 500,000$ phần tử kiểu `Integer` sinh ngẫu nhiên với `seed` cố định (bộ dữ liệu mẫu được xuất ra file [`data/test_data.txt`](./data/test_data.txt)).
    - Mỗi mức `CUTOFF` được chạy lặp lại $T = 15$ lần (`TRIALS = 15`) trên bản sao (`clone()`) của cùng một bộ mảng gốc.
    - Sử dụng `System.nanoTime()` để đo thời gian và tính **Trung bình mẫu (Mean)** cùng **Độ lệch chuẩn mẫu (StdDev)** theo công thức của `StdStats` trong chủ đề 1.3:
      $$\mu = \frac{1}{T}\sum_{i=1}^{T} t_i, \qquad s = \sqrt{\frac{1}{T-1}\sum_{i=1}^{T}(t_i - \mu)^2}$$
@@ -31,7 +31,7 @@ Các phiên bản giáo trình nhắc đến $\text{CUTOFF} = 7$ (bản cũ) và
 
 ## 4. Bảng kết quả thống kê và Biểu đồ
 
-### 4.1. Bảng số liệu đo thực tế ([results.csv](./results.csv))
+### 4.1. Bảng số liệu đo thực tế ([results/results.csv](./results/results.csv))
 
 | CUTOFF | Thời gian TB `Mean` (ms) | Độ lệch chuẩn `StdDev` (ms) | Cải thiện so với `CUTOFF = 1` (%) | Nhận xét |
 | :---: | :---: | :---: | :---: | :--- |
@@ -52,7 +52,7 @@ Các phiên bản giáo trình nhắc đến $\text{CUTOFF} = 7$ (bản cũ) và
 | **100** | 273.56 | 8.92 | -10.95% | Chậm hơn cả Mergesort gốc! |
 
 ### 4.2. Đồ thị kết quả thực nghiệm
-![Biểu đồ CUTOFF Mergesort](./cutoff_chart.png)
+![Biểu đồ CUTOFF Mergesort](./results/cutoff_chart.png)
 
 ---
 
